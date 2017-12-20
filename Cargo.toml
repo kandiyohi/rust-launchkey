@@ -1,0 +1,7 @@
+[package]
+name = "midi_stuff"
+version = "0.1.0"
+authors = ["Donald Johnson <kandiyohi.snow@gmail.com>"]
+
+[dependencies]
+jack = "0.5.6"

@@ -1,0 +1,2 @@
+# Source this so we don't get annoying dev warnings that don't matter yet.
+export RUSTFLAGS="$RUSTFLAGS -A unused_parens -A unused_macros -A unused_imports -A dead_code -A unused_variables"

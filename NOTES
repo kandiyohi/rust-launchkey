@@ -1,0 +1,44 @@
+Configuration file concept.
+
+Configuration files are rules files.  They are defined like:
+
+Maps one channel to another and also maps note up one:
+
+    ch16 64 0-127 -> ch14 65 0-127
+
+Maps inversion of velocity (0 becomes 127, 1 to 126, etc.):
+
+    ch16 64 x ~> ch15 64 ~x
+
+Toggles (if 127 then 0 is sent, this will invert the remembered value):
+
+    ch16 64 ^ ch16 64
+
+--------------------------------------------------------------------------------
+
+Alternatively:
+
+Use lua for rules bindings.
+
+Each rule would add an object to a list of objects for callback.  The object is
+similar to:
+
+    struct {
+        fn callback(midi_info);
+        float priority;
+        bool consume_processing;
+    }
+
+Callback would get a midi_info that has several ways of having the data, from
+the bytes of the midi itself to friendly names for the midi.
+
+Priority would determine the ordering of the structs in the callback list.
+
+Consume_processing determines if processing of the event stops at that callback.
+
+Lua problems:
+
+    Garbage collection is not suited for realtime tasks.  Making sure that
+    objects aren't created at runtime should help.
+
+    Run the GC after every callback loop.
